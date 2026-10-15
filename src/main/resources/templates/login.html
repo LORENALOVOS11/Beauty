@@ -1,0 +1,63 @@
+
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Iniciar sesión - BeautySalon</title>
+
+    <link rel="stylesheet" th:href="@{/css/estilos.css}">
+</head>
+
+<body>
+
+    <div class="login-container">
+
+        <h1>BeautySalon</h1>
+
+        <h2>Iniciar sesión</h2>
+
+        <!-- Mensaje cuando se cerró sesión -->
+        <div th:if="${param.logout}" class="mensaje-exito">
+            Has cerrado sesión correctamente.
+        </div>
+
+        <!-- Mensaje cuando los datos son incorrectos -->
+        <div th:if="${param.error}" class="mensaje-error">
+            Usuario o contraseña incorrectos.
+        </div>
+
+        <form th:action="@{/login}" method="post">
+
+            <label for="username">Usuario</label>
+
+            <input
+                type="text"
+                id="username"
+                name="username"
+                placeholder="Ingresa tu usuario"
+                required>
+
+            <label for="password">Contraseña</label>
+
+            <input
+                type="password"
+                id="password"
+                name="password"
+                placeholder="Ingresa tu contraseña"
+                required>
+
+            <button type="submit">
+                Iniciar sesión
+            </button>
+
+        </form>
+
+    </div>
+
+</body>
+
+</html>
+

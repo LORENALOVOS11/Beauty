@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Servicios - BeautySalon</title>
+
+    <link rel="stylesheet"
+          th:href="@{/css/estilos.css}">
+
+</head>
+
+
+<body>
+
+
+<!-- ============================= -->
+<!-- NAVBAR -->
+<!-- ============================= -->
+
+<header class="navbar">
+
+    <a href="/" class="logo">
+        Beauty<span>Salon</span>
+    </a>
+
+    <nav>
+
+        <ul class="nav-links">
+
+            <li>
+                <a href="/">Inicio</a>
+            </li>
+
+            <li>
+                <a href="/servicios">Servicios</a>
+            </li>
+
+            <li>
+                <a href="/citas">Citas</a>
+            </li>
+
+            <li>
+                <a href="/clientes">Clientes</a>
+            </li>
+
+            <li>
+                <a href="/empleados">Empleados</a>
+            </li>
+
+            <li>
+                <a href="/nosotros">Nosotros</a>
+            </li>
+
+        </ul>
+
+    </nav>
+
+</header>
+
+
+<!-- ============================= -->
+<!-- SERVICIOS -->
+<!-- ============================= -->
+
+<main class="section">
+
+
+    <div class="section-title">
+
+        <h2>Nuestros Servicios</h2>
+
+        <p>
+            Descubre los servicios que BeautySalon
+            tiene para ti.
+        </p>
+
+    </div>
+
+
+    <!-- ============================= -->
+    <!-- CATEGORÍAS -->
+    <!-- ============================= -->
+
+    <div class="services-grid">
+
+
+        <!-- CABELLO -->
+
+        <div class="service-card">
+
+            <div class="service-icon">
+                💇‍♀️
+            </div>
+
+            <h3>Cabello</h3>
+
+            <p>
+                Cortes, tintes, balayage,
+                peinados y tratamientos capilares.
+            </p>
+
+            <a
+                th:href="@{/servicios/categoria(categoria='Cabello')}"
+                class="price">
+
+                Ver servicios
+
+            </a>
+
+        </div>
+
+
+        <!-- UÑAS -->
+
+        <div class="service-card">
+
+            <div class="service-icon">
+                💅
+            </div>
+
+            <h3>Uñas</h3>
+
+            <p>
+                Manicure, pedicure, uñas acrílicas,
+                gel y diseños.
+            </p>
+
+            <a
+                th:href="@{/servicios/categoria(categoria='Uñas')}"
+                class="price">
+
+                Ver servicios
+
+            </a>
+
+        </div>
+
+
+        <!-- MAQUILLAJE -->
+
+        <div class="service-card">
+
+            <div class="service-icon">
+                💄
+            </div>
+
+            <h3>Maquillaje</h3>
+
+            <p>
+                Maquillaje social, para eventos
+                y ocasiones especiales.
+            </p>
+
+            <a
+                th:href="@{/servicios/categoria(categoria='Maquillaje')}"
+                class="price">
+
+                Ver servicios
+
+            </a>
+
+        </div>
+
+
+        <!-- FACIALES -->
+
+        <div class="service-card">
+
+            <div class="service-icon">
+                🧖‍♀️
+            </div>
+
+            <h3>Faciales</h3>
+
+            <p>
+                Limpieza facial, hidratación
+                y tratamientos para la piel.
+            </p>
+
+            <a
+                th:href="@{/servicios/categoria(categoria='Faciales')}"
+                class="price">
+
+                Ver servicios
+
+            </a>
+
+        </div>
+
+
+    </div>
+
+
+</main>
+
+
+<!-- ============================= -->
+<!-- FOOTER -->
+<!-- ============================= -->
+
+<footer class="footer">
+
+    <p>
+        © 2026 BeautySalon
+    </p>
+
+</footer>
+
+
+</body>
+
+</html>

@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Citas - BeautySalon</title>
+
+    <link rel="stylesheet"
+          th:href="@{/css/estilos.css}">
+
+</head>
+
+<body>
+
+
+<header class="navbar">
+
+    <a href="/" class="logo">
+        Beauty<span>Salon</span>
+    </a>
+
+    <nav>
+
+        <ul class="nav-links">
+
+            <li>
+                <a href="/">Inicio</a>
+            </li>
+
+            <li>
+                <a href="/servicios">Servicios</a>
+            </li>
+
+            <li>
+                <a href="/trabajos">Trabajos</a>
+            </li>
+
+            <li>
+                <a href="/citas">Citas</a>
+            </li>
+
+            <li>
+                <a href="/clientes">Clientes</a>
+            </li>
+
+            <li>
+                <a href="/empleados">Empleados</a>
+            </li>
+
+            <li>
+                <a href="/nosotros">Nosotros</a>
+            </li>
+
+        </ul>
+
+    </nav>
+
+</header>
+
+
+<main class="section">
+
+
+    <div class="section-title">
+
+        <h2>
+            Reservar una cita
+        </h2>
+
+        <p>
+            Selecciona el cliente, servicio,
+            empleado, fecha y hora.
+        </p>
+
+    </div>
+
+
+    <!-- FORMULARIO PARA NUEVA CITA -->
+
+    <div class="service-card">
+
+        <h3>
+            Nueva cita
+        </h3>
+
+
+        <form th:action="@{/citas/guardar}"
+              th:object="${cita}"
+              method="post">
+
+
+            <!-- CLIENTE -->
+
+            <div>
+
+                <label>
+                    Cliente:
+                </label>
+
+                <select name="clienteId"
+                        required>
+
+                    <option value="">
+                        Selecciona un cliente
+                    </option>
+
+                    <option
+                        th:each="cliente : ${clientes}"
+                        th:value="${cliente.id}"
+                        th:text="${cliente.nombre + ' ' + cliente.apellido}">
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <br>
+
+
+            <!-- SERVICIO -->
+
+            <div>
+
+                <label>
+                    Servicio:
+                </label>
+
+                <select name="servicioId"
+                        required>
+
+                    <option value="">
+                        Selecciona un servicio
+                    </option>
+
+                    <option
+                        th:each="servicio : ${servicios}"
+                        th:value="${servicio.id}"
+                        th:text="${servicio.nombre}">
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <br>
+
+
+            <!-- EMPLEADO -->
+
+            <div>
+
+                <label>
+                    Empleado:
+                </label>
+
+                <select name="empleadoId"
+                        required>
+
+                    <option value="">
+                        Selecciona un empleado
+                    </option>
+
+                    <option
+                        th:each="empleado : ${empleados}"
+                        th:value="${empleado.id}"
+                        th:text="${empleado.nombre + ' ' + empleado.apellido}">
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <br>
+
+
+            <!-- FECHA -->
+
+            <div>
+
+                <label>
+                    Fecha:
+                </label>
+
+                <input
+                    type="date"
+                    th:field="*{fecha}"
+                    required>
+
+            </div>
+
+
+            <br>
+
+
+            <!-- HORA -->
+
+            <div>
+
+                <label>
+                    Hora:
+                </label>
+
+                <input
+                    type="time"
+                    th:field="*{hora}"
+                    required>
+
+            </div>
+
+
+            <br>
+
+
+            <!-- ESTADO -->
+
+            <div>
+
+                <label>
+                    Estado:
+                </label>
+
+                <select th:field="*{estado}">
+
+                    <option value="Pendiente">
+                        Pendiente
+                    </option>
+
+                    <option value="Confirmada">
+                        Confirmada
+                    </option>
+
+                    <option value="Completada">
+                        Completada
+                    </option>
+
+                    <option value="Cancelada">
+                        Cancelada
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <br>
+
+
+            <button type="submit">
+                Guardar cita
+            </button>
+
+
+        </form>
+
+    </div>
+
+
+</main>
+
+
+<footer class="footer">
+
+    <p>
+        © 2026 BeautySalon
+    </p>
+
+</footer>
+
+
+</body>
+
+</html>

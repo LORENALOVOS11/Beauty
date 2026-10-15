@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Clientes - BeautySalon</title>
+
+    <link rel="stylesheet"
+          th:href="@{/css/estilos.css}">
+
+</head>
+
+<body>
+
+<header class="navbar">
+
+    <a href="/" class="logo">
+        Beauty<span>Salon</span>
+    </a>
+
+    <nav>
+
+        <ul class="nav-links">
+
+            <li>
+                <a href="/">Inicio</a>
+            </li>
+
+            <li>
+                <a href="/servicios">Servicios</a>
+            </li>
+
+            <li>
+                <a href="/citas">Citas</a>
+            </li>
+
+            <li>
+                <a href="/clientes">Clientes</a>
+            </li>
+
+            <li>
+                <a href="/empleados">Empleados</a>
+            </li>
+
+            <li>
+                <a href="/nosotros">Nosotros</a>
+            </li>
+
+        </ul>
+
+    </nav>
+
+</header>
+
+
+<main class="section">
+
+    <div class="section-title">
+
+        <h2>Gestión de Clientes</h2>
+
+        <p>
+            Registra y administra los clientes de BeautySalon.
+        </p>
+
+    </div>
+
+
+    <!-- FORMULARIO PARA REGISTRAR CLIENTE -->
+
+    <div class="service-card">
+
+        <h3>Registrar nuevo cliente</h3>
+
+        <form th:action="@{/clientes/guardar}"
+              th:object="${cliente}"
+              method="post">
+
+            <div>
+
+                <label>Nombre:</label>
+
+                <input type="text"
+                       th:field="*{nombre}"
+                       placeholder="Nombre"
+                       required>
+
+            </div>
+
+            <br>
+
+
+            <div>
+
+                <label>Apellido:</label>
+
+                <input type="text"
+                       th:field="*{apellido}"
+                       placeholder="Apellido"
+                       required>
+
+            </div>
+
+            <br>
+
+
+            <div>
+
+                <label>Teléfono:</label>
+
+                <input type="text"
+                       th:field="*{telefono}"
+                       placeholder="7777-7777"
+                       required>
+
+            </div>
+
+            <br>
+
+
+            <div>
+
+                <label>Correo electrónico:</label>
+
+                <input type="email"
+                       th:field="*{correo}"
+                       placeholder="cliente@gmail.com"
+                       required>
+
+            </div>
+
+            <br>
+
+
+            <button type="submit">
+                Guardar cliente
+            </button>
+
+        </form>
+
+    </div>
+
+
+    <br><br>
+
+
+    <!-- LISTA DE CLIENTES -->
+
+    <div class="service-card">
+
+        <h3>Clientes registrados</h3>
+
+
+        <div th:if="${#lists.isEmpty(clientes)}">
+
+            <p>
+                Todavía no hay clientes registrados.
+            </p>
+
+        </div>
+
+
+        <table th:if="${not #lists.isEmpty(clientes)}">
+
+            <thead>
+
+                <tr>
+
+                    <th>ID</th>
+
+                    <th>Nombre</th>
+
+                    <th>Apellido</th>
+
+                    <th>Teléfono</th>
+
+                    <th>Correo</th>
+
+                    <th>Acciones</th>
+
+                </tr>
+
+            </thead>
+
+
+            <tbody>
+
+                <tr th:each="cliente : ${clientes}">
+
+                    <td th:text="${cliente.id}">
+                        1
+                    </td>
+
+                    <td th:text="${cliente.nombre}">
+                        Nombre
+                    </td>
+
+                    <td th:text="${cliente.apellido}">
+                        Apellido
+                    </td>
+
+                    <td th:text="${cliente.telefono}">
+                        Teléfono
+                    </td>
+
+                    <td th:text="${cliente.correo}">
+                        Correo
+                    </td>
+
+                    <td>
+
+                        <a th:href="@{/clientes/eliminar(id=${cliente.id})}"
+                           onclick="return confirm('¿Deseas eliminar este cliente?');">
+
+                            Eliminar
+
+                        </a>
+
+                    </td>
+
+                </tr>
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</main>
+
+
+<footer class="footer">
+
+    <p>
+        © 2026 BeautySalon
+    </p>
+
+</footer>
+
+
+</body>
+
+</html>

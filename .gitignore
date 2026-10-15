@@ -1,0 +1,55 @@
+
+# Archivos generados
+target/
+build/
+dist/
+logs/
+*.log
+*.tmp
+*.bak
+*.swp
+
+# Variables de entorno y contraseñas
+.env
+.env.*
+!.env.example
+
+# Configuraciones privadas
+application-local.properties
+application-secret.properties
+
+# NetBeans
+/nbproject/private/
+/nbbuild/
+/nbdist/
+/.nb-gradle/
+
+# IntelliJ IDEA
+.idea/
+*.iml
+*.ipr
+*.iws
+
+# Visual Studio Code
+.vscode/
+
+# Spring Tool Suite y Eclipse
+.apt_generated/
+.classpath
+.factorypath
+.project
+.settings/
+.springBeans
+.sts4-cache/
+
+# Archivos del sistema operativo
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# Certificados y claves privadas
+*.pem
+*.key
+*.p12
+*.pfx
+*.jks

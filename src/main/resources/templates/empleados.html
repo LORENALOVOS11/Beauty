@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Empleados - BeautySalon</title>
+
+    <link rel="stylesheet"
+          th:href="@{/css/estilos.css}">
+
+</head>
+
+<body>
+
+<header class="navbar">
+
+    <a href="/" class="logo">
+        Beauty<span>Salon</span>
+    </a>
+
+    <nav>
+
+        <ul class="nav-links">
+
+            <li>
+                <a href="/">Inicio</a>
+            </li>
+
+            <li>
+                <a href="/servicios">Servicios</a>
+            </li>
+
+            <li>
+                <a href="/citas">Citas</a>
+            </li>
+
+            <li>
+                <a href="/clientes">Clientes</a>
+            </li>
+
+            <li>
+                <a href="/empleados">Empleados</a>
+            </li>
+
+            <li>
+                <a href="/nosotros">Nosotros</a>
+            </li>
+
+        </ul>
+
+    </nav>
+
+</header>
+
+
+<main class="section">
+
+    <div class="section-title">
+
+        <h2>Gestión de Empleados</h2>
+
+        <p>
+            Administra el personal de BeautySalon.
+        </p>
+
+    </div>
+
+
+    <!-- FORMULARIO -->
+
+    <div class="service-card">
+
+        <h3>Registrar nuevo empleado</h3>
+
+        <form th:action="@{/empleados/guardar}"
+              th:object="${empleado}"
+              method="post">
+
+            <div>
+
+                <label>Nombre:</label>
+
+                <input type="text"
+                       th:field="*{nombre}"
+                       placeholder="Nombre"
+                       required>
+
+            </div>
+
+            <br>
+
+
+            <div>
+
+                <label>Apellido:</label>
+
+                <input type="text"
+                       th:field="*{apellido}"
+                       placeholder="Apellido"
+                       required>
+
+            </div>
+
+            <br>
+
+
+            <div>
+
+                <label>Teléfono:</label>
+
+                <input type="text"
+                       th:field="*{telefono}"
+                       placeholder="Teléfono"
+                       required>
+
+            </div>
+
+            <br>
+
+
+            <div>
+
+                <label>Correo:</label>
+
+                <input type="email"
+                       th:field="*{correo}"
+                       placeholder="correo@ejemplo.com"
+                       required>
+
+            </div>
+
+            <br>
+
+
+            <div>
+
+                <label>Especialidad:</label>
+
+                <select th:field="*{especialidad}" required>
+
+                    <option value="">
+                        Selecciona una especialidad
+                    </option>
+
+                    <option value="Estilista">
+                        Estilista
+                    </option>
+
+                    <option value="Manicurista">
+                        Manicurista
+                    </option>
+
+                    <option value="Maquillista">
+                        Maquillista
+                    </option>
+
+                    <option value="Especialista en faciales">
+                        Especialista en faciales
+                    </option>
+
+                    <option value="Cosmetóloga">
+                        Cosmetóloga
+                    </option>
+
+                </select>
+
+            </div>
+
+            <br>
+
+
+            <button type="submit">
+                Guardar empleado
+            </button>
+
+        </form>
+
+    </div>
+
+
+    <br><br>
+
+
+    <!-- LISTA DE EMPLEADOS -->
+
+    <div class="service-card">
+
+        <h3>Empleados registrados</h3>
+
+        <div th:if="${#lists.isEmpty(empleados)}">
+
+            <p>
+                Todavía no hay empleados registrados.
+            </p>
+
+        </div>
+
+
+        <table th:if="${not #lists.isEmpty(empleados)}">
+
+            <thead>
+
+                <tr>
+
+                    <th>ID</th>
+
+                    <th>Nombre</th>
+
+                    <th>Apellido</th>
+
+                    <th>Teléfono</th>
+
+                    <th>Correo</th>
+
+                    <th>Especialidad</th>
+
+                    <th>Acciones</th>
+
+                </tr>
+
+            </thead>
+
+
+            <tbody>
+
+                <tr th:each="empleado : ${empleados}">
+
+                    <td th:text="${empleado.id}">
+                        1
+                    </td>
+
+                    <td th:text="${empleado.nombre}">
+                        Nombre
+                    </td>
+
+                    <td th:text="${empleado.apellido}">
+                        Apellido
+                    </td>
+
+                    <td th:text="${empleado.telefono}">
+                        Teléfono
+                    </td>
+
+                    <td th:text="${empleado.correo}">
+                        Correo
+                    </td>
+
+                    <td th:text="${empleado.especialidad}">
+                        Especialidad
+                    </td>
+
+                    <td>
+
+                        <a th:href="@{/empleados/eliminar(id=${empleado.id})}"
+                           onclick="return confirm('¿Deseas eliminar este empleado?');">
+
+                            Eliminar
+
+                        </a>
+
+                    </td>
+
+                </tr>
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</main>
+
+
+<footer class="footer">
+
+    <p>
+        © 2026 BeautySalon
+    </p>
+
+</footer>
+
+
+</body>
+
+</html>

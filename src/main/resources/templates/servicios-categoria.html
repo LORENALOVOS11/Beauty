@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Servicios - BeautySalon</title>
+
+    <link rel="stylesheet"
+          th:href="@{/css/estilos.css}">
+
+</head>
+
+
+<body>
+
+
+<!-- ============================= -->
+<!-- BARRA DE NAVEGACIÓN -->
+<!-- ============================= -->
+
+<header class="navbar">
+
+    <a href="/" class="logo">
+        Beauty<span>Salon</span>
+    </a>
+
+    <nav>
+
+        <ul class="nav-links">
+
+            <li>
+                <a href="/">Inicio</a>
+            </li>
+
+            <li>
+                <a href="/servicios">Servicios</a>
+            </li>
+
+            <li>
+                <a href="/citas">Citas</a>
+            </li>
+
+            <li>
+                <a href="/clientes">Clientes</a>
+            </li>
+
+            <li>
+                <a href="/empleados">Empleados</a>
+            </li>
+
+            <li>
+                <a href="/nosotros">Nosotros</a>
+            </li>
+
+        </ul>
+
+    </nav>
+
+</header>
+
+
+<!-- ============================= -->
+<!-- CONTENIDO -->
+<!-- ============================= -->
+
+<main class="section">
+
+
+    <div class="section-title">
+
+        <h2 th:text="${'Servicios de ' + categoria}">
+            Servicios de Cabello
+        </h2>
+
+        <p>
+            Elige el servicio que deseas reservar.
+        </p>
+
+    </div>
+
+
+    <!-- ============================= -->
+    <!-- TABLA DE SERVICIOS -->
+    <!-- ============================= -->
+
+    <div class="service-card">
+
+
+        <div th:if="${#lists.isEmpty(servicios)}">
+
+            <h3>No hay servicios disponibles</h3>
+
+            <p>
+                Actualmente no hay servicios registrados
+                en esta categoría.
+            </p>
+
+        </div>
+
+
+        <table th:if="${not #lists.isEmpty(servicios)}">
+
+            <thead>
+
+                <tr>
+
+                    <th>Servicio</th>
+
+                    <th>Descripción</th>
+
+                    <th>Precio</th>
+
+                    <th>Duración</th>
+
+                    <th>Reservar</th>
+
+                </tr>
+
+            </thead>
+
+
+            <tbody>
+
+                <tr th:each="servicio : ${servicios}">
+
+
+                    <!-- SERVICIO -->
+
+                    <td>
+
+                        <strong th:text="${servicio.nombre}">
+                            Corte de cabello
+                        </strong>
+
+                    </td>
+
+
+                    <!-- DESCRIPCIÓN -->
+
+                    <td th:text="${servicio.descripcion}">
+                        Corte profesional
+                    </td>
+
+
+                    <!-- PRECIO -->
+
+                    <td>
+
+                        $<span
+                            th:text="${#numbers.formatDecimal(servicio.precio, 1, 2)}">
+                            15.00
+                        </span>
+
+                    </td>
+
+
+                    <!-- DURACIÓN -->
+
+                    <td>
+
+
+                        <!-- Menos de una hora -->
+
+                        <span
+                            th:if="${servicio.duracion != null and servicio.duracion < 60}"
+                            th:text="${servicio.duracion + ' min'}">
+
+                            40 min
+
+                        </span>
+
+
+                        <!-- Exactamente una hora -->
+
+                        <span
+                            th:if="${servicio.duracion != null and servicio.duracion == 60}">
+
+                            1 h
+
+                        </span>
+
+
+                        <!-- Más de una hora exacta -->
+
+                        <span
+                            th:if="${servicio.duracion != null and servicio.duracion > 60 and servicio.duracion % 60 == 0}"
+                            th:text="${servicio.duracion / 60 + ' h'}">
+
+                            2 h
+
+                        </span>
+
+
+                        <!-- Horas + minutos -->
+
+                        <span
+                            th:if="${servicio.duracion != null and servicio.duracion > 60 and servicio.duracion % 60 != 0}"
+                            th:text="${servicio.duracion / 60 + ' h ' + servicio.duracion % 60 + ' min'}">
+
+                            1 h 30 min
+
+                        </span>
+
+
+                        <!-- Duración no registrada -->
+
+                        <span
+                            th:if="${servicio.duracion == null}">
+
+                            No especificada
+
+                        </span>
+
+
+                    </td>
+
+
+                    <!-- RESERVAR -->
+
+                    <td>
+
+                        <a
+                            th:href="@{/citas(servicio=${servicio.id})}"
+                            class="price">
+
+                            Reservar cita
+
+                        </a>
+
+                    </td>
+
+
+                </tr>
+
+            </tbody>
+
+        </table>
+
+
+    </div>
+
+
+    <br><br>
+
+
+    <!-- VOLVER -->
+
+    <a href="/servicios" class="price">
+
+        ← Volver a Servicios
+
+    </a>
+
+
+</main>
+
+
+<!-- ============================= -->
+<!-- PIE DE PÁGINA -->
+<!-- ============================= -->
+
+<footer class="footer">
+
+    <p>
+        © 2026 BeautySalon
+    </p>
+
+</footer>
+
+
+</body>
+
+</html>

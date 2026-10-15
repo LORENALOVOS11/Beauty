@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Inicio - BeautySalon</title>
+
+    <link rel="stylesheet"
+          th:href="@{/css/estilos.css}">
+
+</head>
+
+<body>
+
+
+<!-- =====================================================
+     MENÚ DE NAVEGACIÓN
+     ===================================================== -->
+
+<header>
+
+    <nav class="navbar">
+
+        <a th:href="@{/}" class="logo">
+            💗 BeautySalon
+        </a>
+
+
+        <div class="menu">
+
+            <a th:href="@{/}">
+                Inicio
+            </a>
+
+            <a th:href="@{/servicios}">
+                Servicios
+            </a>
+
+            <a th:href="@{/trabajos}">
+                Trabajos
+            </a>
+
+            <a th:href="@{/citas}">
+                Citas
+            </a>
+
+            <a th:href="@{/clientes}">
+                Clientes
+            </a>
+
+            <a th:href="@{/empleados}">
+                Empleados
+            </a>
+
+            <a th:href="@{/nosotros}">
+                Nosotros
+            </a>
+
+
+            <!-- CERRAR SESIÓN -->
+
+            <form th:action="@{/logout}"
+                  method="post"
+                  class="logout-form">
+
+                <button type="submit"
+                        class="btn-logout">
+
+                    Cerrar sesión
+
+                </button>
+
+            </form>
+
+        </div>
+
+    </nav>
+
+</header>
+
+
+<!-- =====================================================
+     INICIO
+     ===================================================== -->
+
+<main>
+
+    <section class="hero">
+
+        <div class="hero-content">
+
+            <h1>
+                Bienvenida a BeautySalon 💗
+            </h1>
+
+            <p>
+                Tu espacio de belleza, cuidado y estilo.
+            </p>
+
+            <p>
+                En BeautySalon nos encargamos de resaltar
+                tu belleza y brindarte una atención especial.
+            </p>
+
+        </div>
+
+    </section>
+
+</main>
+
+
+<!-- =====================================================
+     PIE DE PÁGINA
+     ===================================================== -->
+
+<footer>
+
+    <p>
+        © 2026 BeautySalon
+    </p>
+
+    <p>
+        Sistema de gestión y agendamiento de citas
+    </p>
+
+</footer>
+
+
+</body>
+
+</html>
