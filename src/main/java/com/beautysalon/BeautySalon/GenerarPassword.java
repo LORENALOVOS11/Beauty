@@ -1,16 +1,20 @@
+
 package com.beautysalon.BeautySalon;
 
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.factory.PasswordEncoderFactories;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 public class GenerarPassword {
 
     public static void main(String[] args) {
 
-        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+        PasswordEncoder encoder =
+                PasswordEncoderFactories.createDelegatingPasswordEncoder();
 
-        String password = encoder.encode("123456");
+        String password = "123456789!";
+        String passwordCifrada = encoder.encode(password);
 
         System.out.println("CONTRASEÑA CIFRADA:");
-        System.out.println(password);
+        System.out.println(passwordCifrada);
     }
 }
