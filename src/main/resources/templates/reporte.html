@@ -1,107 +1,129 @@
-
 <!DOCTYPE html>
 <html lang="es" xmlns:th="http://www.thymeleaf.org">
 
 <head>
-
     <meta charset="UTF-8">
-
-    <meta name="viewport"
-          content="width=device-width, initial-scale=1.0">
-
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Reportes - BeautySalon</title>
 
-    <link rel="stylesheet"
-          th:href="@{/css/estilos.css}">
-
+    <link rel="stylesheet" th:href="@{/css/estilos.css}">
 </head>
 
 <body>
 
-    <!-- MENÚ -->
+    <!-- MENÚ PRINCIPAL -->
     <header class="navbar">
-
         <a href="/">Inicio</a>
-
         <a href="/servicios">Servicios</a>
-
-        <a href="/citas">Citas</a>
-
-        <a href="/clientes">Clientes</a>
-
-        <a href="/empleados">Empleados</a>
-
         <a href="/reportes">Reportes</a>
-
+        <a href="/citas">Citas</a>
+        <a href="/clientes">Clientes</a>
+        <a href="/empleados">Empleados</a>
         <a href="/nosotros">Nosotros</a>
-
     </header>
 
-
-    <!-- CONTENIDO -->
-
+    <!-- CONTENIDO PRINCIPAL -->
     <main class="contenedor">
 
         <h1>📊 Reportes de BeautySalon</h1>
 
-        <p>
-            Consulta el resumen de información del sistema.
-        </p>
-
+        <p>Consulta y busca la información registrada en el sistema.</p>
 
         <section class="reporte">
 
+            <!-- RESUMEN GENERAL -->
             <h2>Resumen general</h2>
 
             <div class="tarjetas">
 
                 <div class="tarjeta">
-
                     <h3>👥 Clientes</h3>
-
                     <p>Clientes registrados</p>
-
+                    <strong th:text="${totalClientes != null ? totalClientes : 0}">0</strong>
                 </div>
 
-
                 <div class="tarjeta">
-
                     <h3>📅 Citas</h3>
-
                     <p>Citas registradas</p>
-
                 </div>
 
-
                 <div class="tarjeta">
-
                     <h3>💇 Servicios</h3>
-
                     <p>Servicios disponibles</p>
-
                 </div>
 
-
                 <div class="tarjeta">
-
                     <h3>👩‍💼 Empleados</h3>
-
                     <p>Empleados registrados</p>
-
                 </div>
 
             </div>
 
+            <!-- BUSCADOR DE CLIENTES -->
+            <h2>Buscar clientes</h2>
 
-            <!-- BOTÓN PDF -->
+            <form th:action="@{/reportes}"
+                  method="get"
+                  class="busqueda-form">
 
+                <input
+                    type="text"
+                    name="buscar"
+                    th:value="${buscar}"
+                    placeholder="Escribe el nombre o apellido del cliente"
+                    aria-label="Buscar cliente por nombre o apellido">
+
+                <button type="submit" class="boton-busqueda">
+                    🔎 Buscar
+                </button>
+
+                <a th:href="@{/reportes}" class="boton-busqueda boton-limpiar">
+                    Limpiar
+                </a>
+
+            </form>
+
+            <!-- RESULTADOS -->
+            <h2>Resultados de clientes</h2>
+
+            <p th:if="${clientes == null or #lists.isEmpty(clientes)}"
+               class="sin-resultados">
+                No se encontraron clientes.
+            </p>
+
+            <div class="tabla-responsive">
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Nombre</th>
+                            <th>Apellido</th>
+                            <th>Teléfono</th>
+                            <th>Correo</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <tr th:each="cliente : ${clientes}">
+                            <td th:text="${cliente.id}"></td>
+                            <td th:text="${cliente.nombre}"></td>
+                            <td th:text="${cliente.apellido}"></td>
+                            <td th:text="${cliente.telefono}"></td>
+                            <td th:text="${cliente.correo}"></td>
+                        </tr>
+                    </tbody>
+                </table>
+
+            </div>
+
+            <!-- EXPORTAR A PDF -->
             <div class="acciones">
 
-                <a href="/reportes/pdf"
-                   class="boton">
-
+                <a
+                    th:href="@{/reportes/pdf(buscar=${buscar})}"
+                    class="boton">
                     📄 Exportar reporte a PDF
-
                 </a>
 
             </div>
@@ -111,5 +133,4 @@
     </main>
 
 </body>
-
 </html>

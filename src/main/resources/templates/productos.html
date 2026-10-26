@@ -1,0 +1,228 @@
+
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Productos - BeautySalon</title>
+    <link rel="stylesheet" th:href="@{/css/estilos.css}">
+
+    <style>
+        .productos-contenedor {
+            max-width: 1100px;
+            margin: 35px auto;
+            padding: 20px;
+        }
+
+        .productos-panel {
+            background: white;
+            padding: 25px;
+            margin: 25px 0;
+            border-radius: 16px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+        }
+
+        .productos-formulario {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 18px;
+        }
+
+        .campo-producto {
+            display: flex;
+            flex-direction: column;
+            gap: 7px;
+        }
+
+        .campo-producto label {
+            font-weight: bold;
+        }
+
+        .campo-producto input,
+        .campo-producto textarea {
+            width: 100%;
+            box-sizing: border-box;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 9px;
+            font-size: 15px;
+        }
+
+        .campo-completo {
+            grid-column: 1 / -1;
+        }
+
+        .btn-producto {
+            background: #d66b96;
+            color: white;
+            padding: 12px 22px;
+            border: none;
+            border-radius: 22px;
+            cursor: pointer;
+            font-weight: bold;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .mensaje-producto {
+            padding: 12px;
+            border-radius: 8px;
+            margin: 15px 0;
+            background: #e4f7e9;
+            color: #236b37;
+        }
+
+        .error-producto {
+            background: #fde8e8;
+            color: #9b2222;
+        }
+
+        .tabla-productos {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .tabla-productos th,
+        .tabla-productos td {
+            padding: 12px;
+            border-bottom: 1px solid #eee;
+            text-align: left;
+        }
+
+        .tabla-productos th {
+            background: #fce8f0;
+        }
+
+        .tabla-productos-contenedor {
+            overflow-x: auto;
+        }
+
+        @media (max-width: 600px) {
+            .productos-formulario {
+                grid-template-columns: 1fr;
+            }
+
+            .campo-completo {
+                grid-column: auto;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <nav class="navbar">
+            <a th:href="@{/}" class="logo">💗 BeautySalon</a>
+
+            <div class="menu">
+                <a th:href="@{/}">Inicio</a>
+                <a th:href="@{/servicios}">Servicios</a>
+                <a th:href="@{/reportes}">Reportes</a>
+                <a th:href="@{/productos}">Productos</a>
+                <a th:href="@{/citas}">Citas</a>
+                <a th:href="@{/clientes}">Clientes</a>
+                <a th:href="@{/empleados}">Empleados</a>
+                <a th:href="@{/nosotros}">Nosotros</a>
+            </div>
+        </nav>
+    </header>
+
+    <main class="productos-contenedor">
+
+        <h1>🧴 Inventario de productos</h1>
+        <p>Registra y controla los productos utilizados en BeautySalon.</p>
+
+        <div th:if="${mensaje}" class="mensaje-producto"
+             th:text="${mensaje}"></div>
+
+        <div th:if="${error}" class="mensaje-producto error-producto"
+             th:text="${error}"></div>
+
+        <section class="productos-panel">
+            <h2>➕ Agregar producto</h2>
+
+            <form th:action="@{/productos/guardar}"
+                  th:object="${producto}"
+                  method="post"
+                  class="productos-formulario">
+
+                <div class="campo-producto">
+                    <label for="nombre">Nombre del producto</label>
+                    <input type="text" id="nombre" th:field="*{nombre}"
+                           maxlength="100" required
+                           placeholder="Ej. Esmalte de uñas">
+                </div>
+
+                <div class="campo-producto">
+                    <label for="descripcion">Descripción</label>
+                    <input type="text" id="descripcion"
+                           th:field="*{descripcion}" maxlength="250"
+                           placeholder="Marca, color o detalle">
+                </div>
+
+                <div class="campo-producto">
+                    <label for="precio">Precio</label>
+                    <input type="number" id="precio" th:field="*{precio}"
+                           min="0" step="0.01" required
+                           placeholder="Ej. 5.00">
+                </div>
+
+                <div class="campo-producto">
+                    <label for="cantidad">Cantidad disponible</label>
+                    <input type="number" id="cantidad"
+                           th:field="*{cantidad}" min="0" required
+                           placeholder="Ej. 10">
+                </div>
+
+                <div class="campo-completo">
+                    <button type="submit" class="btn-producto">
+                        💾 Guardar producto
+                    </button>
+                </div>
+
+            </form>
+        </section>
+
+        <section class="productos-panel">
+            <h2>📦 Productos registrados</h2>
+
+            <p th:if="${productos == null or #lists.isEmpty(productos)}">
+                Todavía no hay productos registrados.
+            </p>
+
+            <div class="tabla-productos-contenedor">
+                <table class="tabla-productos">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Producto</th>
+                            <th>Descripción</th>
+                            <th>Precio</th>
+                            <th>Cantidad</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <tr th:each="p : ${productos}">
+                            <td th:text="${p.id}"></td>
+                            <td th:text="${p.nombre}"></td>
+                            <td th:text="${p.descripcion}"></td>
+                            <td th:text="${p.precio}"></td>
+                            <td th:text="${p.cantidad}"></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+    </main>
+
+    <footer>
+        <p>© 2026 BeautySalon</p>
+        <p>Sistema de gestión y agendamiento de citas</p>
+    </footer>
+
+</body>
+</html>
